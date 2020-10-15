@@ -13,9 +13,18 @@ public class HelloWorldWS {
     private Logger log	= LoggerFactory.getLogger(HelloWorldWS.class);
 
     @GetMapping({"/", "hello"})
-    public String helloWorld(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
-        log.debug("Entering. name:{}", name);
+    public String helloWorld(
+            @RequestParam(required = false, defaultValue = "World") String name,
+            @RequestParam(required = false, defaultValue = "") String gender,
+            Model model) {
+
+        log.debug("Entering. name:{} gender:{}", name, gender);
+        String salute = "";
+        if(!("").equals(gender)) {
+            salute = ("male".equals(gender) ? "Mr " : "Mrs ");
+        }
         model.addAttribute("name", name);
+        model.addAttribute("gender", salute);
         log.debug("Leaving");
         return "hello-world";
     }

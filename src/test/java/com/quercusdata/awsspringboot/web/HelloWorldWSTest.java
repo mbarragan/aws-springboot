@@ -1,5 +1,7 @@
 package com.quercusdata.awsspringboot.web;
 
+import com.quercusdata.awsspringboot.service.UserService;
+import com.quercusdata.awsspringboot.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class HelloWorldWSTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    UserServiceImpl userService;
 
     @Test
     public void helloWorldWithNameNoGenderTest() throws Exception {

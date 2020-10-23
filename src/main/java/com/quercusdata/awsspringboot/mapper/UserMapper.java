@@ -1,23 +1,25 @@
 package com.quercusdata.awsspringboot.mapper;
 
 import com.quercusdata.awsspringboot.entity.User;
-import com.quercusdata.awsspringboot.model.PUser;
+import com.quercusdata.awsspringboot.model.UserModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
-    public User mapPersistanceToApi(PUser pUser) {
+    public User mapApiToPersistence(UserModel userModel) {
         User user = new User();
-        user.setId(pUser.getId());
-        user.setUsername(pUser.getUserName());
-        user.setPassword(pUser.getPassword());
+        user.setId(userModel.getId());
+        user.setUsername(userModel.getUsername());
+        user.setPassword(userModel.getPassword());
         return user;
     }
 
-    public PUser mapApiToPersistence(User user) {
-        PUser pUser = new PUser();
-        pUser.setId(user.getId());
-        pUser.setUserName(user.getUsername());
-        pUser.setPassword(user.getPassword());
-        return pUser;
+    public UserModel mapPersistanceToApi(User user) {
+        UserModel userModel = new UserModel();
+        userModel.setId(user.getId());
+        userModel.setUsername(user.getUsername());
+        userModel.setPassword(user.getPassword());
+        return userModel;
     }
 }

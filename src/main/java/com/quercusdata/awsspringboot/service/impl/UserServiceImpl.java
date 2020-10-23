@@ -2,7 +2,7 @@ package com.quercusdata.awsspringboot.service.impl;
 
 import com.quercusdata.awsspringboot.entity.User;
 import com.quercusdata.awsspringboot.mapper.UserMapper;
-import com.quercusdata.awsspringboot.model.PUser;
+import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.repository.UserRepository;
 import com.quercusdata.awsspringboot.service.UserService;
 import org.slf4j.Logger;
@@ -19,19 +19,23 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private UserMapper userMapper;
 
 
     @Override
-    public User findById(Long userId) {
-        Optional<PUser> pUser = userRepository.findById(userId);
-        return pUser.map(user -> userMapper.mapPersistanceToApi(user)).orElse(null);
+    public UserModel findById(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()) {
+            return userMapper.mapPersistanceToApi(user.get());
+        }
+        return null;
     }
 
     @Override
-    public User createUser(User user) {
-        PUser pUser = userMapper.mapApiToPersistence(user);
-        return userMapper.mapPersistanceToApi(userRepository.save(pUser));
+    public UserModel createUser(User user) {
+        User returnedUser = userRepository.save(user);
+        return userMapper.mapPersistanceToApi(returnedUser);
     }
 }

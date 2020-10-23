@@ -1,10 +1,11 @@
 package com.quercusdata.awsspringboot.service;
 
 import com.quercusdata.awsspringboot.entity.User;
+import com.quercusdata.awsspringboot.model.UserModel;
 
 public interface UserService {
 
-    User findById(Long userId);
+    UserModel findById(Long userId);
 
-    User createUser(User user);
+    UserModel createUser(User user);
 }

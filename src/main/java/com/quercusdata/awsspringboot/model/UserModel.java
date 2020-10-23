@@ -1,16 +1,17 @@
-package com.quercusdata.awsspringboot.entity;
+package com.quercusdata.awsspringboot.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name = "T_USER")
-public class User extends AbstractDomainObject {
+public class UserModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("password")
     private String password;
 
     public Long getId() {

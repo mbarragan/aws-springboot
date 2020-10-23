@@ -1,6 +1,6 @@
 package com.quercusdata.awsspringboot.web;
 
-import com.quercusdata.awsspringboot.entity.User;
+import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,8 @@ public class UserWS {
 
     @GetMapping(value = "/{userId}",
             produces = { "application/json" })
-    public ResponseEntity<User> getUserById(@RequestParam(value = "A unique identifier for a `User`.",required=true) @PathVariable("userId") Long userId) {
-        User user = userService.findById(userId);
+    public ResponseEntity<UserModel> getUserById(@RequestParam(value = "A unique identifier for a `User`.",required=true) @PathVariable("userId") Long userId) {
+        UserModel user = userService.findById(userId);
         if(user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }

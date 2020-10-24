@@ -21,7 +21,8 @@ public class UserWS {
 
     @GetMapping(value = "/{userId}",
             produces = { "application/json" })
-    public ResponseEntity<UserModel> getUserById(@RequestParam(value = "A unique identifier for a `User`.",required=true) @PathVariable("userId") Long userId) {
+    public ResponseEntity<UserModel> getUserById(//@RequestParam(value = "A unique identifier for a `User`.",required=true)
+                                                  @PathVariable("userId") Long userId) {
         UserModel user = userService.findById(userId);
         if(user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);

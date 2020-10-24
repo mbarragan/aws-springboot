@@ -7,7 +7,8 @@ import com.quercusdata.awsspringboot.model.UserModel;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-        import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -35,7 +36,7 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    @Ignore
+    //@Ignore
     public void createUserTest() {
         User user = generateUserEntity();
 
@@ -49,11 +50,12 @@ public class UserRepositoryTest {
     @Ignore
     public void getUserByIdTest() {
         User user = generateUserEntity();
-        entityManager.persist(user);
-        entityManager.flush();
+//        entityManager.persist(user);
+//        entityManager.flush();
 
-        Optional<User> returnedUser = userRepository.findById(1L);
-        //Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        //
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        Optional<User> returnedUser = userRepository.findById( user.getId());
 
         assertThat(returnedUser.get().getUsername())
                 .isEqualTo(user.getUsername());

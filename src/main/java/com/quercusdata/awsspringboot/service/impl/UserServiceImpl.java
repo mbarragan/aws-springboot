@@ -26,16 +26,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel findById(Long userId) {
+
+        log.debug("Entering with userId {}", userId);
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
+            log.debug("Found user {}", user.get().toString());
             return userMapper.mapPersistanceToApi(user.get());
         }
         return null;
     }
 
     @Override
-    public UserModel createUser(User user) {
+    public UserModel createUser(UserModel userModel) {
+
+        log.debug("Entering");
+        User user = userMapper.mapApiToPersistence( userModel);
         User returnedUser = userRepository.save(user);
+
+        log.debug("Leaving. Created user {}", user.toString());
         return userMapper.mapPersistanceToApi(returnedUser);
     }
 }

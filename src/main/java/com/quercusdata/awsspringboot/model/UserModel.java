@@ -1,7 +1,6 @@
 package com.quercusdata.awsspringboot.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.stereotype.Component;
 
 public class UserModel {
 

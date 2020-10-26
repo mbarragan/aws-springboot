@@ -21,8 +21,9 @@ public class UserWS {
 
     @GetMapping(value = "/{userId}",
             produces = { "application/json" })
-    public ResponseEntity<UserModel> getUserById(//@RequestParam(value = "A unique identifier for a `User`.",required=true)
-                                                  @PathVariable("userId") Long userId) {
+    public ResponseEntity<UserModel> getUserById(@PathVariable("userId") Long userId) {
+
+        log.debug("Entering with userId {}", userId);
         UserModel user = userService.findById(userId);
         if(user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -30,5 +31,17 @@ public class UserWS {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    //TODO create
+    @PostMapping(value = "",
+            produces = { "application/json" },
+            consumes = { "application/json" })
+    public ResponseEntity<UserModel> createUser(@RequestBody UserModel userModel) {
+
+        log.debug("Entering");
+        if(userModel == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        UserModel userReturned = userService.createUser(userModel);
+
+        return new ResponseEntity<>(userReturned, HttpStatus.OK);
+    }
 }

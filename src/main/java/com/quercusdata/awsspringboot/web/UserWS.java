@@ -1,6 +1,5 @@
 package com.quercusdata.awsspringboot.web;
 
-import com.quercusdata.awsspringboot.exception.CRUDNotFoundException;
 import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.service.UserService;
 import org.slf4j.Logger;

@@ -1,0 +1,77 @@
+{
+  "info": {
+    "_postman_id": "77639ca6-c822-41ef-a14b-1e6162bbfcde",
+    "name": "aws-springboot",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "getUserById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/user/:userId",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "user",
+            ":userId"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1",
+              "disabled": true
+            }
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "createUser",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"username\":\"pepe\",\n\t\"password\":\"123\"\n}"
+        },
+        "url": {
+          "raw": "localhost:8080/user",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "user"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

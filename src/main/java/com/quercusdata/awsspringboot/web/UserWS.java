@@ -25,10 +25,8 @@ public class UserWS {
 
         log.debug("Entering with userId {}", userId);
         UserModel user = userService.findById(userId);
-        if(user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        log.debug("Leaving");
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "",
@@ -37,9 +35,6 @@ public class UserWS {
     public ResponseEntity<UserModel> createUser(@RequestBody UserModel userModel) {
 
         log.debug("Entering");
-        if(userModel == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
         UserModel userReturned = userService.createUser(userModel);
 
         return new ResponseEntity<>(userReturned, HttpStatus.OK);

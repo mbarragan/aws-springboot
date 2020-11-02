@@ -1,6 +1,7 @@
 package com.quercusdata.awsspringboot.service.impl;
 
 import com.quercusdata.awsspringboot.entity.User;
+import com.quercusdata.awsspringboot.exception.CRUDNotFoundException;
 import com.quercusdata.awsspringboot.mapper.UserMapper;
 import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.repository.UserRepository;
@@ -29,11 +30,11 @@ public class UserServiceImpl implements UserService {
 
         log.debug("Entering with userId {}", userId);
         Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()) {
-            log.debug("Found user {}", user.get().toString());
-            return userMapper.mapPersistanceToApi(user.get());
+        if(!user.isPresent()) {
+            throw new CRUDNotFoundException("Could not find User with ID: " + userId);
         }
-        return null;
+        log.debug("Leaving. Found user {}", user.get().toString());
+        return userMapper.mapPersistanceToApi(user.get());
     }
 
     @Override
@@ -42,6 +43,9 @@ public class UserServiceImpl implements UserService {
         log.debug("Entering");
         User user = userMapper.mapApiToPersistence( userModel);
         User returnedUser = userRepository.save(user);
+        if(returnedUser == null) {
+            throw new CRUDNotFoundException("Could not create the user " + userModel.getUsername());
+        }
 
         log.debug("Leaving. Created user {}", user.toString());
         return userMapper.mapPersistanceToApi(returnedUser);

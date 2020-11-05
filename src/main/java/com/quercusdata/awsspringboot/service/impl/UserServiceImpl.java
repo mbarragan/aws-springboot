@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,11 +45,19 @@ public class UserServiceImpl implements UserService {
         log.debug("Entering");
         User user = userMapper.mapApiToPersistence( userModel);
         User returnedUser = userRepository.save(user);
-        if(returnedUser == null) {
-            throw new CRUDNotFoundException("Could not create the user " + userModel.getUsername());
-        }
+//        if(returnedUser == null) {
+//            throw new CRUDNotFoundException("Could not create the user " + userModel.getUsername());
+//        }
 
         log.debug("Leaving. Created user {}", user.toString());
         return userMapper.mapPersistanceToApi(returnedUser);
+    }
+
+    @Override
+    public List<UserModel> getUsers() {
+        log.debug("Entering");
+        List<User> users = userRepository.findAll();
+        log.debug("Leaving");
+        return users.stream().map(user -> userMapper.mapPersistanceToApi( user)).collect(Collectors.toList());
     }
 }

@@ -15,6 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,5 +74,22 @@ public class UserServiceTest {
         userServiceImpl.createUser( userModel);
 
         assertThat(returnedUser.getId()).isEqualTo(userModel.getId());
+    }
+
+    @Test
+    public void getUsersTest() {
+
+        User user = TestEntitiesData.generateEntityUser(1L, "john", "123");
+        UserModel userModel = TestDTOData.generateUser(null, "john", "123");
+        List<User> users = Collections.singletonList( user);
+
+        // mock method to get the entity and to map towards a DTO
+        Mockito.when(userRepository.findAll()).thenReturn( users);
+        Mockito.when(userMapper.mapPersistanceToApi( user)).thenReturn( userModel);
+
+        List<UserModel> returnedUsers = userServiceImpl.getUsers();
+
+        assertThat(returnedUsers.size()).isEqualTo(1);
+        assertThat(returnedUsers.get(0).getUsername()).isEqualTo(userModel.getUsername());
     }
 }

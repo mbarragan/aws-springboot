@@ -13,6 +13,9 @@ public class UserModel {
     @JsonProperty("password")
     private String password;
 
+
+    public UserModel() {}
+
     public Long getId() {
         return id;
     }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.activation.MimeType;
 import java.util.List;
 
 @RestController
@@ -51,5 +52,16 @@ public class UserWS {
         List<UserModel> userModels = userService.getUsers();
         log.debug("Leaving");
         return new ResponseEntity<>(userModels, HttpStatus.OK);
+    }
+
+    @PutMapping(value="/{userId}",
+            produces = { "application/json" },
+            consumes = { "application/json" })
+    public ResponseEntity<UserModel> updateUser(@PathVariable("userId") Long userId, @RequestBody UserModel userModel) {
+
+        log.debug("Entering with userId {}", userId);
+        UserModel userReturned = userService.updateUser(userId, userModel);
+        log.debug("Leaving");
+        return new ResponseEntity<>(userReturned, HttpStatus.OK);
     }
 }

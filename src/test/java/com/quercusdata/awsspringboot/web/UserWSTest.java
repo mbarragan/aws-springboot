@@ -3,6 +3,7 @@ package com.quercusdata.awsspringboot.web;
 import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.service.UserService;
 import com.quercusdata.awsspringboot.util.TestDTOData;
+import com.quercusdata.awsspringboot.util.TestEntitiesData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -18,8 +19,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -71,5 +71,19 @@ public class UserWSTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", equalTo(1)));
 
+    }
+
+    @Test
+    public void updateUserTest() throws Exception {
+
+        UserModel mockUserToUpdate = TestDTOData.generateUser(null, "john doe", "123");
+        UserModel mockUserReturned = TestDTOData.generateUser(1L, "john doe", "123");
+        Mockito.when(userService.updateUser(1L, mockUserToUpdate)).thenReturn( mockUserReturned);
+
+        mvc.perform(put("/user/1").contentType( MediaType.APPLICATION_JSON)
+                .accept( MediaType.APPLICATION_JSON)
+                .content( TestDTOData.asJsonString( mockUserToUpdate)))
+                .andExpect(status().isOk());
+                //.andExpect(jsonPath("$.password", equalTo("123")));
     }
 }

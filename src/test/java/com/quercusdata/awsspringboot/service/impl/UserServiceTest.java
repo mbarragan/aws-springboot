@@ -92,4 +92,21 @@ public class UserServiceTest {
         assertThat(returnedUsers.size()).isEqualTo(1);
         assertThat(returnedUsers.get(0).getUsername()).isEqualTo(userModel.getUsername());
     }
+
+    @Test
+    public void updateUserTest() {
+
+        User user = new User();
+        User userById = TestEntitiesData.generateEntityUser(null, "john", "123");
+        User userSaved = TestEntitiesData.generateEntityUser(1L, "john", "123");
+        UserModel userModel = TestDTOData.generateUser(1L, "john", "123");
+
+        Mockito.when( userRepository.findById(1L)).thenReturn( Optional.of( userById));
+        Mockito.when( userRepository.save(userById)).thenReturn( userSaved);
+        Mockito.when( userMapper.mapPersistanceToApi( userSaved)).thenReturn( userModel);
+
+        UserModel userModelUpdated = userServiceImpl.updateUser( 1L, userModel);
+
+        assertThat(userModelUpdated.getId()).isEqualTo(1L);
+    }
 }

@@ -11,4 +11,6 @@ public interface UserService {
     UserModel createUser(UserModel user);
 
     List<UserModel> getUsers();
+
+    UserModel updateUser(Long userId, UserModel userModel);
 }

@@ -1,6 +1,7 @@
 package com.quercusdata.awsspringboot.service.impl;
 
 import com.quercusdata.awsspringboot.entity.User;
+import com.quercusdata.awsspringboot.exception.CRUDBadRequestException;
 import com.quercusdata.awsspringboot.exception.CRUDNotFoundException;
 import com.quercusdata.awsspringboot.mapper.UserMapper;
 import com.quercusdata.awsspringboot.model.UserModel;
@@ -59,5 +60,23 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         log.debug("Leaving");
         return users.stream().map(user -> userMapper.mapPersistanceToApi( user)).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserModel updateUser(Long userId, UserModel userModel) {
+        log.debug("Entering with userId {}", userId);
+        if(userId == null || userModel == null) {
+            throw new CRUDBadRequestException("Bad request. Empty userId or userModel.");
+        }
+        Optional<User> optUserById = userRepository.findById(userId);
+        if( !optUserById.isPresent()) {
+            throw new CRUDNotFoundException("No user found to update");
+        }
+        User userById = optUserById.get();
+        userById.setUsername( userModel.getUsername());
+        userById.setPassword( userModel.getPassword());
+        log.debug("Leaving");
+
+        return userMapper.mapPersistanceToApi( userRepository.save( userById));
     }
 }

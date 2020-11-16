@@ -3,7 +3,6 @@ package com.quercusdata.awsspringboot.web;
 import com.quercusdata.awsspringboot.model.UserModel;
 import com.quercusdata.awsspringboot.service.UserService;
 import com.quercusdata.awsspringboot.util.TestDTOData;
-import com.quercusdata.awsspringboot.util.TestEntitiesData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,8 +19,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserWS.class)
@@ -84,6 +82,19 @@ public class UserWSTest {
                 .accept( MediaType.APPLICATION_JSON)
                 .content( TestDTOData.asJsonString( mockUserToUpdate)))
                 .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.password", equalTo("123")));
+//                .andExpect(jsonPath("$.password", equalTo("123")));
+
+//        .andExpect(content()
+//              .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//              .andExpect(jsonPath("$[0].name", is("bob"))));
+    }
+
+    @Test
+    public void deleteUserTest() throws Exception {
+
+        mvc.perform(delete("/user/1").contentType( MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+
     }
 }

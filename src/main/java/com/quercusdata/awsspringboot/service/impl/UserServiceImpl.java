@@ -79,4 +79,17 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.mapPersistanceToApi( userRepository.save( userById));
     }
+
+    @Override
+    public void deleteUser(Long userId) {
+
+        if(userId == null) {
+            throw new CRUDBadRequestException("Bad request. Empty userId.");
+        }
+        Optional<User> optUserById = userRepository.findById(userId);
+        if( !optUserById.isPresent()) {
+            throw new CRUDNotFoundException("No user found to delete");
+        }
+        userRepository.deleteById(userId);
+    }
 }

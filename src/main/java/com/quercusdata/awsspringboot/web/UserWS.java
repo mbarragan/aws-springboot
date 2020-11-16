@@ -64,4 +64,10 @@ public class UserWS {
         log.debug("Leaving");
         return new ResponseEntity<>(userReturned, HttpStatus.OK);
     }
+
+    @DeleteMapping(value="/{userId}",
+            produces = { "application/json" })
+    public void deleteUser(@PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+    }
 }

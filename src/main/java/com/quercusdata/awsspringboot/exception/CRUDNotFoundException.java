@@ -6,11 +6,6 @@ public class CRUDNotFoundException extends AbstractCRUDException {
 
     public CRUDNotFoundException(final String errorDescription)
     {
-        super(ERROR_BAD_REQUEST, errorDescription, "An error occurred. Please contact Application Support.");
-    }
-
-    public CRUDNotFoundException(final String errorDescription, final String userMessage)
-    {
-        super(ERROR_NOT_FOUND, errorDescription, userMessage);
+        super(ERROR_NOT_FOUND, errorDescription, "An error occurred. Please contact Application Support.");
     }
 }

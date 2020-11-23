@@ -36,6 +36,7 @@ public class UserWS {
     @PostMapping(value = "",
             produces = { "application/json" },
             consumes = { "application/json" })
+    @CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
     public ResponseEntity<UserModel> createUser(@RequestBody UserModel userModel) {
 
         log.debug("Entering");

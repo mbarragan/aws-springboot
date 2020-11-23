@@ -39,7 +39,7 @@ public class UserMapperTest {
 
         assertThat("User id", expectedUser.getId(), equalTo(user.getId()));
         assertThat("User name", expectedUser.getUsername(), equalTo(user.getUsername()));
-        assertThat("User pass", expectedUser.getPassword(), equalTo(user.getPassword()));
+        assertThat("User pass", expectedUser.getNickname(), equalTo(user.getNickname()));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class UserMapperTest {
 
         assertThat("User id", expectedUser.getId(), equalTo(userModel.getId()));
         assertThat("User name", expectedUser.getUsername(), equalTo(userModel.getUsername()));
-        assertThat("User pass", expectedUser.getPassword(), equalTo(userModel.getPassword()));
+        assertThat("User pass", expectedUser.getNickname(), equalTo(userModel.getNickname()));
     }
 }

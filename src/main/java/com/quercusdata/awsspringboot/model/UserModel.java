@@ -10,8 +10,8 @@ public class UserModel {
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("nickname")
+    private String nickname;
 
 
     public UserModel() {}
@@ -32,11 +32,11 @@ public class UserModel {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

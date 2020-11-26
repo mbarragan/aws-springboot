@@ -31,7 +31,7 @@ public class UserRepositoryTest {
         User returnedUser = userRepository.save(user);
 
         assertEquals(returnedUser.getUsername(), user.getUsername());
-        assertEquals(returnedUser.getPassword(), user.getPassword());
+        assertEquals(returnedUser.getNickname(), user.getNickname());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UserRepositoryTest {
         Optional<User> returnedUser = userRepository.findById( user.getId());
         if(returnedUser.isPresent()) {
             assertThat(returnedUser.get().getUsername()).isEqualTo(user.getUsername());
-            assertThat(returnedUser.get().getPassword()).isEqualTo(user.getPassword());
+            assertThat(returnedUser.get().getNickname()).isEqualTo(user.getNickname());
             assertEquals(user.getId(), returnedUser.get().getId());
         }
     }

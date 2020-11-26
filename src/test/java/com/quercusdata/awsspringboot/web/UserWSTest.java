@@ -42,7 +42,7 @@ public class UserWSTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(1)))
                 .andExpect(jsonPath("$.username", equalTo("john")))
-                .andExpect(jsonPath("$.password", equalTo("123")));
+                .andExpect(jsonPath("$.nickname", equalTo("123")));
     }
 
     @Test

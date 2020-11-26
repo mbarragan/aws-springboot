@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
         }
         User userById = optUserById.get();
         userById.setUsername( userModel.getUsername());
-        userById.setPassword( userModel.getPassword());
+        userById.setNickname( userModel.getNickname());
         log.debug("Leaving");
 
         return userMapper.mapPersistanceToApi( userRepository.save( userById));

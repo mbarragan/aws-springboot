@@ -5,12 +5,12 @@ import com.quercusdata.awsspringboot.model.UserModel;
 
 public class TestDTOData
 {
-	public static UserModel generateUser(Long userId, String username, String password)
+	public static UserModel generateUser(Long userId, String username, String nickname)
 	{
 		UserModel userModel = new UserModel();
 		userModel.setId(userId);
 		userModel.setUsername(username);
-		userModel.setPassword(password);
+		userModel.setNickname(nickname);
 		return userModel;
 	}
 

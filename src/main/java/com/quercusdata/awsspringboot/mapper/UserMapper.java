@@ -11,7 +11,7 @@ public class UserMapper {
         User user = new User();
         user.setId(userModel.getId());
         user.setUsername(userModel.getUsername());
-        user.setPassword(userModel.getPassword());
+        user.setNickname(userModel.getNickname());
         return user;
     }
 
@@ -19,7 +19,7 @@ public class UserMapper {
         UserModel userModel = new UserModel();
         userModel.setId(user.getId());
         userModel.setUsername(user.getUsername());
-        userModel.setPassword(user.getPassword());
+        userModel.setNickname(user.getNickname());
         return userModel;
     }
 }
